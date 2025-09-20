@@ -1,0 +1,391 @@
+{
+  "name": "AI bot for order",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "758547d2-2b4f-4fc0-b82e-2cc2cc7ff94f",
+      "name": "Telegram Trigger",
+      "webhookId": "2ae7c607-9d0b-49f0-ac58-1e0bc328374a",
+      "notesInFlow": true,
+      "credentials": {
+        "telegramApi": {
+          "id": "yJBLOWwLpKVmd6qd",
+          "name": "Telegram account 3"
+        }
+      },
+      "notes": "give us your name and order\n"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message.text }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "You are an order processing assistant for a restaurant.\n\nYour job:\n-take the user's name first \n- Take the user's message including quantity of order and the provided menu.\n- Match each item the user mentions to the correct menu item.\n\nRules:\n- If quantity is missing, assume quantity = 1.\n- Only include items that exist in the provided menu.\n- Normalize item names exactly as they appear in the menu.\n- Calculate the \"price\" from the menu (price per unit * quantity).\n- Ignore any unrelated text.\n\nMenu:\n- Burger — 8.99 — Beef patty, cheddar cheese, lettuce, tomato, pickles, special sauce\n- Chicken Burger — 7.99 — Crispy chicken fillet, mayo, lettuce, pickles\n- Pizza Margherita — 10.50 — Fresh mozzarella, tomato sauce, basil\n- Pepperoni Pizza — 12.00 — Tomato sauce, mozzarella, beef pepperoni\n- Salad — 6.50 — Mixed greens, cucumber, cherry tomatoes, vinaigrette\n- Caesar Salad — 7.50 — Romaine lettuce, croutons, parmesan, caesar dressing\n- Pasta Alfredo — 11.00 — Fettuccine, creamy alfredo sauce, parmesan\n- Pasta Bolognese — 12.00 — Spaghetti, beef ragu, parmesan\n- French Fries — 3.50 — Crispy potato fries, salt\n- Cheese Fries — 4.50 — Fries, melted cheddar cheese\n- Soft Drink — 2.00 — Choice of cola, orange, lemon\n- Fresh Juice — 3.50 — Choice of orange, mango, strawberry\n"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        416,
+        0
+      ],
+      "id": "33223a75-9d90-4cbe-a1a9-54b76d40ba56",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "model": "tngtech/deepseek-r1t2-chimera:free",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        352,
+        208
+      ],
+      "id": "e67768fa-7652-4882-acb2-8fc76b7d1284",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "qbKncaQe03Ci94Vz",
+          "name": "OpenRouter account 6"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "{\n\t\"type\": \"object\",\n\t\"properties\":\n  {\n        \"message\":{\n               \"type\":\"string\",\n               \"description\":\"LLM Reply\"\n          },\n       \"is_chosen\":{\n             \"type\":\"boolean\",\n             \"description\":\"True if an item from menu was chosen\"\n         },\n       \"name\":{\n         \"type\":\"string\",\n         \"description\":\"item name if an item from menu was chosen\"\n       },\n        \"quantity\":{\n          \"type\":\"string\",\n          \"description\":\"item quantity if an item from menu was chosen\"\n        },\n\n      \"price\":\n      {\n      \"type\":\"string\",\n      \"description\":\"item price if an item from menuwas chosen\"\n      },\n    \"ingridients\":{\n      \"type\": \"string\",\n      \"description\":\"item ingrediants if an item from menu was chosen\"\n    }\n    \n  }\n}\n        \n     \n\t"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        560,
+        208
+      ],
+      "id": "797f8b61-d73c-4fec-ab54-458abeeb4146",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "= your order is prepared mr. {{ $('Telegram Trigger').item.json.message.chat.first_name }}\nyour order is {{ $('Basic LLM Chain').item.json.output.name }}\nyour price is {{ $json.output.price }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1248,
+        -16
+      ],
+      "id": "46f7b9fe-f078-4971-a065-58e454447634",
+      "name": "Send a text message",
+      "webhookId": "707726bb-fe96-4116-88ae-9135ba9e2538",
+      "credentials": {
+        "telegramApi": {
+          "id": "5CATx5XXPmV8e2UV",
+          "name": "Telegram account 7"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1gpg0-FfOh5a2s1zB9GOI6EtyiEvXByPI9B_i_ZL6F70",
+          "mode": "list",
+          "cachedResultName": "orderssss",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1gpg0-FfOh5a2s1zB9GOI6EtyiEvXByPI9B_i_ZL6F70/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1YDnNI9nULkW7YKOMIp8Ps73kB1vzuZgiyp9FzQUAh9A/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "item name": "={{ $('Basic LLM Chain').item.json.output.name }}",
+            "price": "={{ $('Basic LLM Chain').item.json.output.price }}",
+            "ingrediants": "={{ $('Basic LLM Chain').item.json.output.ingridients }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "item name",
+              "displayName": "item name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "quantity",
+              "displayName": "quantity",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "price",
+              "displayName": "price",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "ingrediants",
+              "displayName": "ingrediants",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "timesstamp",
+              "displayName": "timesstamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1552,
+        -32
+      ],
+      "id": "cd592802-2820-4cb1-aee8-76cdf22770fb",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "NFglSsry5237GPxY",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.output.is_chosen }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    },
+                    "id": "43f44d0a-4e58-4535-8751-b44fa7c83428"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "true"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "799d68df-83f2-43fa-a296-4653ce3a9d43",
+                    "leftValue": "={{ $json.output.is_chosen }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "false",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "false"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        768,
+        0
+      ],
+      "id": "19564b07-fc84-4148-b9a0-7a2901def8dd",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $('Basic LLM Chain').item.json.output.message }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1200,
+        160
+      ],
+      "id": "5c7f312c-192a-4dec-921b-052c5f2bca3c",
+      "name": "Send a text message1",
+      "webhookId": "81789470-cbbb-4e17-a63c-9996972d91e7",
+      "credentials": {
+        "telegramApi": {
+          "id": "ephLxWIjo4qFS9La",
+          "name": "Telegram account 5"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        []
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "6b901a83-ce29-4766-ad58-607ef861d02c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "52f74da9870ff728765c61c312c7823a894987fdae138344d9d8df9a17323011"
+  },
+  "id": "KzwQwQRY812ZXll9",
+  "tags": []
+}
