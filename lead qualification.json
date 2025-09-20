@@ -1,0 +1,356 @@
+{
+  "name": "lead qualification",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -112,
+        -16
+      ],
+      "id": "ed3cefe9-021d-49e0-ba07-19d09fd875e3",
+      "name": "Telegram Trigger",
+      "webhookId": "66969395-7a74-44a2-821e-9a19f0d27e9c",
+      "credentials": {
+        "telegramApi": {
+          "id": "qz0qqa6D5yCK7TXw",
+          "name": "Telegram account 9"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message.text }}",
+        "options": {
+          "systemMessage": "=You are a professional real estate assistant.  \nYour job is to qualify leads by asking them structured questions step by step about:\n1. Location preference\n2. Property type (apartment, villa, commercial, etc.)\n3. Budget range\n4. Size (number of bedrooms or area)\n5. Timeline (immediate, 1–3 months, 6+ months)\n6. Purpose (living, investment, business)\n7. Financing (cash or mortgage)\n\nAfter collecting answers, summarize everything back to the client in natural language and ask for confirmation:\n“Here is your information: [summarized details]. Do you confirm this? Reply YES or NO.”\n\n- If the client replies **YES**, return ONLY a JSON object with the following format:\n\n{\n  \"name\": \"Client name or null\",\n  \"contact\": \"Telegram username or phone or E-mail\",\n  \"location\": \"...\",\n  \"property_type\": \"...\",\n  \"budget\": \"...\",\n  \"size\": \"...\",\n  \"timeline\": \"...\",\n  \"purpose\": \"...\",\n  \"financing\": \"...\",\n  \"qualification_status\": \"hot | warm | cold\",\n  \"confirmed\": true\n}\n\nUse this scoring system:\n- Location provided = 15\n- Property type specified = 15\n- Budget specified = 20\n- Size given = 10\n- Timeline (immediate or 1–3 months) = 15\n- Purpose clear = 10\n- Financing clear = 15\n\n- If the client replies **NO**, politely ask what part is incorrect and update the details until they confirm.  \n- Never output anything except the JSON object after confirmation.\n- give the client score from 1-100 if the score above 80% add this details to the google sheet"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        304,
+        -16
+      ],
+      "id": "e692f02e-6ab5-447e-b1d8-dca8b63a7948",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "google/gemini-2.0-flash-exp:free",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        240,
+        192
+      ],
+      "id": "02a53e7b-f1da-4b1c-9e79-8959cbc66243",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "2ahQTkJ78FXjA4XZ",
+          "name": "OpenRouter account 8"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "contextWindowLength": 15
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        352,
+        208
+      ],
+      "id": "5d7eb6cc-f7bb-4e88-8e81-779fb0e70d47",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1Ptx6rk7ZTL17JjiBW2Mc4bpLEQmfF7LTaFdWRG-Vb64",
+          "mode": "list",
+          "cachedResultName": "lead qualification",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ptx6rk7ZTL17JjiBW2Mc4bpLEQmfF7LTaFdWRG-Vb64/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ptx6rk7ZTL17JjiBW2Mc4bpLEQmfF7LTaFdWRG-Vb64/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "property type": "={{ $fromAI(\"property_type\") }}",
+            "Buy/Rent": "={{ $fromAI(\"bur_or_rent\") }}",
+            "New/Resale": "={{ $fromAI(\"new_resale\") }}",
+            "First Purchase": "={{ $fromAI(\"is_first_purchase\") }}",
+            "Timeline": "={{ $fromAI(\"timeline\") }}",
+            "Budget": "={{ $fromAI(\"budget\") }}",
+            "Name": "={{ $fromAI(\"name\") }}",
+            "E-mail": "={{ $fromAI(\"name\") }}",
+            "score": "={{ $fromAI(\"score\") }}"
+          },
+          "matchingColumns": [
+            "property type"
+          ],
+          "schema": [
+            {
+              "id": "property type",
+              "displayName": "property type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Buy/Rent",
+              "displayName": "Buy/Rent",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "New/Resale",
+              "displayName": "New/Resale",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "First Purchase",
+              "displayName": "First Purchase",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Timeline",
+              "displayName": "Timeline",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Budget",
+              "displayName": "Budget",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "E-mail",
+              "displayName": "E-mail",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "score",
+              "displayName": "score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        464,
+        192
+      ],
+      "id": "cb46131b-8ed7-407a-99ae-d2a474de7dc6",
+      "name": "Append or update row in sheet in Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "NFglSsry5237GPxY",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        560,
+        -16
+      ],
+      "id": "45d0fa90-7d13-421f-9af9-c9481034146a",
+      "name": "Send a text message",
+      "webhookId": "fc65c4f4-7ea5-46e8-9cda-28218703b151",
+      "credentials": {
+        "telegramApi": {
+          "id": "qz0qqa6D5yCK7TXw",
+          "name": "Telegram account 9"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b5b60f28-e026-4fae-877e-8d6e88940289",
+              "leftValue": "={{ $json.message.chat.id }}",
+              "rightValue": 1604064066,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        96,
+        -16
+      ],
+      "id": "5ad3eaa9-37f3-44cf-b891-5759cffa71c1",
+      "name": "If"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "f58a0c8b-3e6f-4bb8-adfa-e2d27a872351",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "52f74da9870ff728765c61c312c7823a894987fdae138344d9d8df9a17323011"
+  },
+  "id": "1qTR71v4vAiDpi1q",
+  "tags": []
+}
