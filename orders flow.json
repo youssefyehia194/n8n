@@ -54,14 +54,14 @@
           "value": "1aNZbSKaahpX0wDBkGBaB63psoAQfFtTHrmALvegZzZw",
           "mode": "list",
           "cachedResultName": "orders",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1aNZbSKaahpX0wDBkGBaB63psoAQfFtTHrmALvegZzZw/edit?usp=drivesdk"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/"
         },
         "sheetName": {
           "__rl": true,
           "value": "gid=0",
           "mode": "list",
           "cachedResultName": "Sheet1",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1wFA1QQxbv4lFc0LCX3w5FFfh79ISptxL_U2TwAc5TyE/edit#gid=0"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d"
         },
         "columns": {
           "mappingMode": "defineBelow",
