@@ -14,12 +14,12 @@
         -112,
         -16
       ],
-      "id": "ed3cefe9-021d-49e0-ba07-19d09fd875e3",
+      "id": "..............",
       "name": "Telegram Trigger",
-      "webhookId": "66969395-7a74-44a2-821e-9a19f0d27e9c",
+      "webhookId": "...............",
       "credentials": {
         "telegramApi": {
-          "id": "qz0qqa6D5yCK7TXw",
+          "id": ".............",
           "name": "Telegram account 9"
         }
       }
@@ -38,7 +38,7 @@
         304,
         -16
       ],
-      "id": "e692f02e-6ab5-447e-b1d8-dca8b63a7948",
+      "id": ".................",
       "name": "AI Agent"
     },
     {
@@ -52,11 +52,11 @@
         240,
         192
       ],
-      "id": "02a53e7b-f1da-4b1c-9e79-8959cbc66243",
+      "id": ".............",
       "name": "OpenRouter Chat Model",
       "credentials": {
         "openRouterApi": {
-          "id": "2ahQTkJ78FXjA4XZ",
+          "id": "............",
           "name": "OpenRouter account 8"
         }
       },
@@ -74,7 +74,7 @@
         352,
         208
       ],
-      "id": "5d7eb6cc-f7bb-4e88-8e81-779fb0e70d47",
+      "id": "................",
       "name": "Simple Memory"
     },
     {
@@ -82,17 +82,17 @@
         "operation": "appendOrUpdate",
         "documentId": {
           "__rl": true,
-          "value": "1Ptx6rk7ZTL17JjiBW2Mc4bpLEQmfF7LTaFdWRG-Vb64",
+          "value": ".................",
           "mode": "list",
           "cachedResultName": "lead qualification",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ptx6rk7ZTL17JjiBW2Mc4bpLEQmfF7LTaFdWRG-Vb64/edit?usp=drivesdk"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d.............."
         },
         "sheetName": {
           "__rl": true,
           "value": "gid=0",
           "mode": "list",
           "cachedResultName": "Sheet1",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ptx6rk7ZTL17JjiBW2Mc4bpLEQmfF7LTaFdWRG-Vb64/edit#gid=0"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d................"
         },
         "columns": {
           "mappingMode": "defineBelow",
@@ -206,11 +206,11 @@
         464,
         192
       ],
-      "id": "cb46131b-8ed7-407a-99ae-d2a474de7dc6",
+      "id": "..............",
       "name": "Append or update row in sheet in Google Sheets",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "NFglSsry5237GPxY",
+          "id": "..............",
           "name": "Google Sheets account 2"
         }
       }
@@ -229,12 +229,12 @@
         560,
         -16
       ],
-      "id": "45d0fa90-7d13-421f-9af9-c9481034146a",
+      "id": ".............."
       "name": "Send a text message",
-      "webhookId": "fc65c4f4-7ea5-46e8-9cda-28218703b151",
+      "webhookId": "...............",
       "credentials": {
         "telegramApi": {
-          "id": "qz0qqa6D5yCK7TXw",
+          "id": "..............",
           "name": "Telegram account 9"
         }
       }
@@ -250,7 +250,7 @@
           },
           "conditions": [
             {
-              "id": "b5b60f28-e026-4fae-877e-8d6e88940289",
+              "id": ".....................",
               "leftValue": "={{ $json.message.chat.id }}",
               "rightValue": 1604064066,
               "operator": {
@@ -269,7 +269,7 @@
         96,
         -16
       ],
-      "id": "5ad3eaa9-37f3-44cf-b891-5759cffa71c1",
+      "id": "................",
       "name": "If"
     }
   ],
@@ -346,7 +346,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "f58a0c8b-3e6f-4bb8-adfa-e2d27a872351",
+  "versionId": "........................",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "52f74da9870ff728765c61c312c7823a894987fdae138344d9d8df9a17323011"
