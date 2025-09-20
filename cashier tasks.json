@@ -1,5 +1,5 @@
 {
-  "name": "shafiqs tasks",
+  "name": "cashier tasks",
   "nodes": [
     {
       "parameters": {
@@ -27,14 +27,14 @@
           "value": "1txG5067jIgmzwm4y2EKKMYN_Ac3V-xE4DRdcPLPIWXs",
           "mode": "list",
           "cachedResultName": "cashier tasks",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1txG5067jIgmzwm4y2EKKMYN_Ac3V-xE4DRdcPLPIWXs/edit?usp=drivesdk"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets"
         },
         "sheetName": {
           "__rl": true,
           "value": "gid=0",
           "mode": "list",
           "cachedResultName": "Sheet1",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1txG5067jIgmzwm4y2EKKMYN_Ac3V-xE4DRdcPLPIWXs/edit#gid=0"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets"
         },
         "options": {}
       },
@@ -55,7 +55,7 @@
     },
     {
       "parameters": {
-        "sendTo": "youssefyehia194@gmail.com",
+        "sendTo": "E-mail",
         "subject": "your tasks",
         "emailType": "text",
         "message": "=here are you tasks:\n{{$json[\"tasksText\"]}}\n\n",
