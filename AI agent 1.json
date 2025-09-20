@@ -13,7 +13,7 @@
         208,
         0
       ],
-      "id": "7af82c63-7668-410e-8064-63311b613529",
+      "id": "............",
       "name": "AI Agent"
     },
     {
@@ -27,11 +27,11 @@
         96,
         208
       ],
-      "id": "689c8a57-bbe0-48f5-abf4-316ba5661590",
+      "id": "............",
       "name": "OpenRouter Chat Model",
       "credentials": {
         "openRouterApi": {
-          "id": "XPKoYbolYah35kFX",
+          "id": "............",
           "name": "OpenRouter account 7"
         }
       }
@@ -46,9 +46,9 @@
         16,
         0
       ],
-      "id": "3790bb01-b695-4983-960c-622971213b23",
+      "id": "............",
       "name": "When chat message received",
-      "webhookId": "0aa6a814-a7af-476d-9657-9a22afb71e84"
+      "webhookId": "..............."
     },
     {
       "parameters": {},
@@ -58,14 +58,14 @@
         224,
         208
       ],
-      "id": "5f8bb072-e1b2-40b6-a5a8-0f1ce63e32af",
+      "id": "................",
       "name": "Simple Memory"
     },
     {
       "parameters": {
         "descriptionType": "manual",
         "toolDescription": "Push a message in Pushover when you have a question that you don't have an answer for",
-        "userKey": "uzedmaj616qvi97eyv91y7cdpdoqoy",
+        "userKey": ".............",
         "message": "={{ $fromAI(\"question\") }}",
         "priority": 1,
         "additionalFields": {}
@@ -76,18 +76,18 @@
         464,
         176
       ],
-      "id": "b61fbf12-4d25-47e2-a194-7c75dc8c218b",
+      "id": ".............",
       "name": "push_notification_tool",
       "credentials": {
         "pushoverApi": {
-          "id": "XDOFwxADkKbOpAkQ",
+          "id": ".............",
           "name": "Pushover account"
         }
       }
     },
     {
       "parameters": {
-        "chatId": "1604064066",
+        "chatId": ".............",
         "text": "={{$fromAI(\"telegram_message\")}}",
         "additionalFields": {
           "appendAttribution": false
@@ -99,12 +99,12 @@
         352,
         336
       ],
-      "id": "0048c1c7-0a5b-4ac1-a9c7-a362bffed1fd",
+      "id": "................",
       "name": "push_telegram_message",
       "webhookId": "200c5ede-ad64-42c0-8772-5518ba4be770",
       "credentials": {
         "telegramApi": {
-          "id": "qz0qqa6D5yCK7TXw",
+          "id": "..............",
           "name": "Telegram account 9"
         }
       }
@@ -172,7 +172,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "1c3870a8-cd85-4af4-9123-768d3358a87b",
+  "versionId": "....................",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "52f74da9870ff728765c61c312c7823a894987fdae138344d9d8df9a17323011"
