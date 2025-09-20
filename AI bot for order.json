@@ -14,13 +14,13 @@
         0,
         0
       ],
-      "id": "758547d2-2b4f-4fc0-b82e-2cc2cc7ff94f",
+      "id": "....",
       "name": "Telegram Trigger",
-      "webhookId": "2ae7c607-9d0b-49f0-ac58-1e0bc328374a",
+      "webhookId": ".....",
       "notesInFlow": true,
       "credentials": {
         "telegramApi": {
-          "id": "yJBLOWwLpKVmd6qd",
+          "id": ".....",
           "name": "Telegram account 3"
         }
       },
@@ -46,7 +46,7 @@
         416,
         0
       ],
-      "id": "33223a75-9d90-4cbe-a1a9-54b76d40ba56",
+      "id": ".......",
       "name": "Basic LLM Chain"
     },
     {
@@ -60,11 +60,11 @@
         352,
         208
       ],
-      "id": "e67768fa-7652-4882-acb2-8fc76b7d1284",
+      "id": "........",
       "name": "OpenRouter Chat Model",
       "credentials": {
         "openRouterApi": {
-          "id": "qbKncaQe03Ci94Vz",
+          "id": ".....",
           "name": "OpenRouter account 6"
         }
       }
@@ -80,7 +80,7 @@
         560,
         208
       ],
-      "id": "797f8b61-d73c-4fec-ab54-458abeeb4146",
+      "id": ".......",
       "name": "Structured Output Parser"
     },
     {
@@ -97,12 +97,12 @@
         1248,
         -16
       ],
-      "id": "46f7b9fe-f078-4971-a065-58e454447634",
+      "id": ".......",
       "name": "Send a text message",
       "webhookId": "707726bb-fe96-4116-88ae-9135ba9e2538",
       "credentials": {
         "telegramApi": {
-          "id": "5CATx5XXPmV8e2UV",
+          "id": ".......",
           "name": "Telegram account 7"
         }
       }
@@ -115,14 +115,14 @@
           "value": "1gpg0-FfOh5a2s1zB9GOI6EtyiEvXByPI9B_i_ZL6F70",
           "mode": "list",
           "cachedResultName": "orderssss",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1gpg0-FfOh5a2s1zB9GOI6EtyiEvXByPI9B_i_ZL6F70/edit?usp=drivesdk"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d......"
         },
         "sheetName": {
           "__rl": true,
           "value": "gid=0",
           "mode": "list",
           "cachedResultName": "Sheet1",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1YDnNI9nULkW7YKOMIp8Ps73kB1vzuZgiyp9FzQUAh9A/edit#gid=0"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d......."
         },
         "columns": {
           "mappingMode": "defineBelow",
@@ -195,11 +195,11 @@
         1552,
         -32
       ],
-      "id": "cd592802-2820-4cb1-aee8-76cdf22770fb",
+      "id": "...........",
       "name": "Append row in sheet",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "NFglSsry5237GPxY",
+          "id": "........",
           "name": "Google Sheets account 2"
         }
       }
@@ -225,7 +225,7 @@
                       "operation": "true",
                       "singleValue": true
                     },
-                    "id": "43f44d0a-4e58-4535-8751-b44fa7c83428"
+                    "id": "........."
                   }
                 ],
                 "combinator": "and"
@@ -243,7 +243,7 @@
                 },
                 "conditions": [
                   {
-                    "id": "799d68df-83f2-43fa-a296-4653ce3a9d43",
+                    "id": "............",
                     "leftValue": "={{ $json.output.is_chosen }}",
                     "rightValue": "",
                     "operator": {
@@ -268,7 +268,7 @@
         768,
         0
       ],
-      "id": "19564b07-fc84-4148-b9a0-7a2901def8dd",
+      "id": "...........",
       "name": "Switch"
     },
     {
@@ -285,12 +285,12 @@
         1200,
         160
       ],
-      "id": "5c7f312c-192a-4dec-921b-052c5f2bca3c",
+      "id": "..........",
       "name": "Send a text message1",
-      "webhookId": "81789470-cbbb-4e17-a63c-9996972d91e7",
+      "webhookId": ".............",
       "credentials": {
         "telegramApi": {
-          "id": "ephLxWIjo4qFS9La",
+          "id": "..........",
           "name": "Telegram account 5"
         }
       }
@@ -381,11 +381,11 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "6b901a83-ce29-4766-ad58-607ef861d02c",
+  "versionId": "...........",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "52f74da9870ff728765c61c312c7823a894987fdae138344d9d8df9a17323011"
+    "instanceId": "............"
   },
-  "id": "KzwQwQRY812ZXll9",
+  "id": "..........",
   "tags": []
 }
